@@ -19,7 +19,7 @@ namespace GitViz.Logic
 
         public IEnumerable<Commit> GetLog(int maxResults = 20)
         {
-            var command = string.Format("log --pretty=format:\"{0}\" -{1}", _parser.ExpectedOutputFormat, maxResults);
+            var command = string.Format("log --all --pretty=format:\"{0}\" -{1}", _parser.ExpectedOutputFormat, maxResults);
             var log = _executor.ExecuteAndGetOutputStream(command);
             return _parser.ParseCommits(log);
         }
