@@ -11,6 +11,7 @@ namespace GitViz.Logic
     {
         string _repositoryPath;
         CommitGraph _graph = new CommitGraph();
+        FileSystemWatcher _watcher;
 
         readonly LogParser _parser = new LogParser();
 
@@ -32,10 +33,26 @@ namespace GitViz.Logic
 
                     var commits = logRetriever.GetLog();
                     _graph = GenerateGraphFromCommits(commits);
+
+                    _watcher = new FileSystemWatcher(Path.Combine(_repositoryPath, @".git\refs"))
+                    {
+                        EnableRaisingEvents = true,
+                        IncludeSubdirectories = true
+                    };
+                    FileSystemEventHandler onChanged = (sender, args) =>
+                    {
+                        commits = logRetriever.GetLog();
+                        _graph = GenerateGraphFromCommits(commits);
+                        OnPropertyChanged("Graph");
+                    };
+                    _watcher.Changed += onChanged;
+                    _watcher.Created += onChanged;
+                    _watcher.Deleted += onChanged;
                 }
                 else
                 {
                     _graph = new CommitGraph();
+                    if (_watcher != null) _watcher.Dispose();
                 }
 
                 OnPropertyChanged("Graph");
