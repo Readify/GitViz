@@ -12,6 +12,10 @@ namespace GitViz.Tests.LogParserTests
             "4be5ef1",
             Description = "Initial commit",
             Result = "{Hash:4be5ef1}")]
+        [TestCase(
+            "4e4224c 4be5ef1",
+            Description = "Commit with one parent",
+            Result = "{Hash:4e4224c,ParentHash:4be5ef1}")]
         public string Test(string logLine)
         {
             var commit = LogParser.ParseCommit(logLine);
