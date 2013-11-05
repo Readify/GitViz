@@ -1,8 +1,10 @@
 ﻿<Window x:Class="UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="GitViz" Height="350" Width="525"
+        Name="Window">
+    <StackPanel>
+        <TextBox Padding="5" Text="{Binding ElementName=Window, Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <ListBox ItemsSource="{Binding ElementName=Window, Path=Commits}"></ListBox>
+    </StackPanel>
 </Window>

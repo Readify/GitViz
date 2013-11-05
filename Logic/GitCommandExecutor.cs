@@ -38,8 +38,7 @@ namespace GitViz.Logic
                 FileName = "git.exe",
                 Arguments = command,
                 WorkingDirectory = _repositoryPath,
-                CreateNoWindow = false,
-                WindowStyle = ProcessWindowStyle.Hidden,
+                CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
