@@ -1,10 +1,13 @@
 ﻿<Window x:Class="UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="GitViz" Height="350" Width="525"
-        Name="Window">
+        xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
+        Title="GitViz" Height="350" Width="525">
+    <Window.DataContext>
+        <logic:ViewModel />
+    </Window.DataContext>
     <StackPanel>
-        <TextBox Padding="5" Text="{Binding ElementName=Window, Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <ListBox ItemsSource="{Binding ElementName=Window, Path=Commits}"></ListBox>
+        <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <ListBox ItemsSource="{Binding Path=Commits}"></ListBox>
     </StackPanel>
 </Window>
