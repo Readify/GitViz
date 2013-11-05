@@ -38,14 +38,20 @@
             </Setter>
         </Style>
     </Window.Resources>
-    <StackPanel>
-        <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <ui:CommitGraphLayout
-            Graph="{Binding Path=Graph}"
-            LayoutAlgorithmType="EfficientSugiyama"
-            OverlapRemovalAlgorithmType="FSA"
-            HighlightAlgorithmType="Simple"
-            Margin="20"
-        />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBox Grid.Row="0" Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ui:CommitGraphLayout
+                Graph="{Binding Path=Graph}"
+                LayoutAlgorithmType="EfficientSugiyama"
+                OverlapRemovalAlgorithmType="FSA"
+                HighlightAlgorithmType="Simple"
+                Margin="20"
+            />
+        </ScrollViewer>
+    </Grid>
 </Window>
