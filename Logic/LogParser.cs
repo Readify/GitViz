@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 
@@ -16,15 +17,20 @@ namespace GitViz.Logic
             }
         }
 
-        static readonly Regex ParseCommitRegex = new Regex(@"(?<hash>\w{7})( (?<parentHash>\w{7}))?");
+        static readonly Regex ParseCommitRegex = new Regex(@"^(?<hash>\w{7})(?<parentHashes>( \w{7})+)?");
 
         internal static Commit ParseCommit(string logOutputLine)
         {
             var match = ParseCommitRegex.Match(logOutputLine.Trim());
+
+            var parentHashes = match.Groups["parentHashes"].Success
+                ? match.Groups["parentHashes"].Value.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries)
+                : null;
+
             return new Commit
             {
                 Hash = match.Groups["hash"].Value,
-                ParentHash = match.Groups["parentHash"].Success ? match.Groups["parentHash"].Value : null
+                ParentHashes = parentHashes
             };
         }
     }
