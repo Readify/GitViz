@@ -9,6 +9,11 @@
     </Window.DataContext>
     <StackPanel>
         <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-        <ui:CommitGraphLayout Graph="{Binding Path=Graph}" />
+        <ui:CommitGraphLayout
+            Graph="{Binding Path=Graph}"
+            LayoutAlgorithmType="Tree"
+            OverlapRemovalAlgorithmType="FSA"
+            HighlightAlgorithmType="Simple"
+        />
     </StackPanel>
 </Window>
