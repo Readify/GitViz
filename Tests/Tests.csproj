@@ -50,6 +50,7 @@
     <Compile Include="LogParserTests\ParseCommit.cs" />
     <Compile Include="LogParserTests\ParseCommits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemporaryFolder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj">

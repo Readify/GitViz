@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using GitViz.Logic;
+﻿using GitViz.Logic;
 using NUnit.Framework;
 
 namespace GitViz.Tests
@@ -11,16 +9,10 @@ namespace GitViz.Tests
         [Test]
         public void ShouldGitInit()
         {
-            var temporaryRepositoryPath = Path.Combine(Path.GetTempPath(), "repo" + DateTimeOffset.UtcNow.Ticks);
-            try
+            using (var repo = new TemporaryFolder())
             {
-                Directory.CreateDirectory(temporaryRepositoryPath);
-                var executor = new GitCommandExecutor(temporaryRepositoryPath);
-                executor.Execute("init");
-            }
-            finally
-            {
-                Directory.Delete(temporaryRepositoryPath, true);
+                var executor = new GitCommandExecutor(repo.Path);
+                executor.Execute("init").ReadToEnd();
             }
         }
     }
