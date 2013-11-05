@@ -70,10 +70,21 @@ namespace GitViz.Logic
 
             var commitVertices = commits.Select(c => new Vertex(c)).ToList();
 
-            // Add all the commits
-            graph.AddVertexRange(commitVertices);
+            // Add all the vertices
+            foreach (var commitVertex in commitVertices)
+            {
+                graph.AddVertex(commitVertex);
 
-            // Links all the commits
+                if (commitVertex.Commit.Refs == null) continue;
+                foreach (var refName in commitVertex.Commit.Refs)
+                {
+                    var refVertex = new Vertex(new Reference { Name = refName });
+                    graph.AddVertex(refVertex);
+                    graph.AddEdge(new CommitEdge(refVertex, commitVertex));
+                }
+            }
+
+            // Add all the edges
             foreach (var commitVertex in commitVertices.Where(c => c.Commit.ParentHashes != null))
             {
                 foreach (var parentHash in commitVertex.Commit.ParentHashes)
@@ -82,22 +93,6 @@ namespace GitViz.Logic
                     if (parentVertex != null) graph.AddEdge(new CommitEdge(commitVertex, parentVertex));
                 }
             }
-
-            // Add and link all the refs
-            commitVertices
-                .Where(c => c.Commit.Refs != null)
-                .SelectMany(c => c.Commit.Refs.Select(r => new
-                {
-                    CommitVertex = c,
-                    RefName = r
-                }))
-                .ToList()
-                .ForEach(r =>
-                {
-                    var refVertex = new Vertex(new Reference {Name = r.RefName});
-                    graph.AddVertex(refVertex);
-                    graph.AddEdge(new CommitEdge(refVertex, r.CommitVertex));
-                });
 
             return graph;
         }
