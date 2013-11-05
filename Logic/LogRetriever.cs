@@ -17,7 +17,7 @@ namespace GitViz.Logic
 
         public IEnumerable<Commit> GetLog()
         {
-            var log = _executor.ExecuteAndGetOutputStream("log --pretty=format:\"%h %p\"");
+            var log = _executor.ExecuteAndGetOutputStream(string.Format("log --pretty=format:\"{0}\"", _parser.ExpectedOutputFormat));
             return _parser.ParseCommits(log);
         }
     }

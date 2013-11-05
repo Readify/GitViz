@@ -7,6 +7,8 @@ namespace GitViz.Logic
 {
     public class LogParser
     {
+        public readonly string ExpectedOutputFormat = "%h %p %d";
+
         public IEnumerable<Commit> ParseCommits(StreamReader gitLogOutput)
         {
             while (!gitLogOutput.EndOfStream)
