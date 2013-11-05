@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitCommandExecutorTests.cs" />
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="LogParserTests\ParseCommit.cs" />
     <Compile Include="LogParserTests\ParseCommits.cs" />
