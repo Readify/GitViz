@@ -3,10 +3,27 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
+        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         Title="GitViz" Height="350" Width="525">
     <Window.DataContext>
         <logic:ViewModel />
     </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate x:Key="CommitTemplate" DataType="{x:Type logic:Commit}">
+            <TextBlock Text="{Binding Path=Hash, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+        </DataTemplate>
+        <Style TargetType="{x:Type graphsharp:VertexControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type graphsharp:VertexControl}">
+                        <Border BorderBrush="DarkSlateGray" Background="#daf5dd" BorderThickness="3" CornerRadius="10,10,10,10" Padding="10">
+                            <ContentPresenter Content="{TemplateBinding Vertex}" ContentTemplate="{StaticResource CommitTemplate}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <StackPanel>
         <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         <ui:CommitGraphLayout
@@ -14,6 +31,7 @@
             LayoutAlgorithmType="Tree"
             OverlapRemovalAlgorithmType="FSA"
             HighlightAlgorithmType="Simple"
+            Margin="20"
         />
     </StackPanel>
 </Window>
