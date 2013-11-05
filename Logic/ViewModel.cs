@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -29,24 +30,32 @@ namespace GitViz.Logic
                     var commandExecutor = new GitCommandExecutor(_repositoryPath);
                     var logRetriever = new LogRetriever(commandExecutor, _parser);
 
-                    var commits = logRetriever.GetLog().ToList();
-                    _graph = new CommitGraph();
-                    _graph.AddVertexRange(commits);
-
-                    foreach (var commit in commits.Where(c => c.ParentHashes != null))
-                        foreach (var parentHash in commit.ParentHashes)
-                        {
-                            var parent = commits.SingleOrDefault(c => c.Hash == parentHash);
-                            if (parent != null) _graph.AddEdge(new CommitEdge(commit, parent));
-                        }
-
-                    OnPropertyChanged("Graph");
+                    var commits = logRetriever.GetLog();
+                    _graph = GenerateGraphFromCommits(commits);
                 }
                 else
                 {
                     _graph = new CommitGraph();
                 }
+
+                OnPropertyChanged("Graph");
             }
+        }
+
+        private CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits)
+        {
+            commits = commits.ToList();
+
+            var graph = new CommitGraph();
+            graph.AddVertexRange(commits);
+            foreach (var commit in commits.Where(c => c.ParentHashes != null))
+                foreach (var parentHash in commit.ParentHashes)
+                {
+                    var parent = commits.SingleOrDefault(c => c.Hash == parentHash);
+                    if (parent != null) graph.AddEdge(new CommitEdge(commit, parent));
+                }
+
+            return graph;
         }
 
         public CommitGraph Graph
