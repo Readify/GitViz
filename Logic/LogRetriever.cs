@@ -15,9 +15,10 @@ namespace GitViz.Logic
             _parser = parser ?? new LogParser();
         }
 
-        public IEnumerable<Commit> GetLog()
+        public IEnumerable<Commit> GetLog(int maxResults = 20)
         {
-            var log = _executor.ExecuteAndGetOutputStream(string.Format("log --pretty=format:\"{0}\"", _parser.ExpectedOutputFormat));
+            var command = string.Format("log --pretty=format:\"{0}\" -{1}", _parser.ExpectedOutputFormat, maxResults);
+            var log = _executor.ExecuteAndGetOutputStream(command);
             return _parser.ParseCommits(log);
         }
     }
