@@ -49,7 +49,9 @@
     <Compile Include="JsonExtensions.cs" />
     <Compile Include="LogParserTests\ParseCommit.cs" />
     <Compile Include="LogParserTests\ParseCommits.cs" />
+    <Compile Include="LogRetrieverTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TemporaryRepository.cs" />
     <Compile Include="TemporaryFolder.cs" />
   </ItemGroup>
   <ItemGroup>

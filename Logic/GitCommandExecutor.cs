@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace GitViz.Logic
@@ -12,7 +13,25 @@ namespace GitViz.Logic
             _repositoryPath = repositoryPath;
         }
 
-        public StreamReader Execute(string command)
+        public string Execute(string command)
+        {
+            var process = CreateProcess(command);
+            process.WaitForExit(10000);
+
+            if (process.ExitCode == 0)
+                return process.StandardOutput.ReadToEnd();
+
+            var errorText = process.StandardError.ReadToEnd();
+            throw new ApplicationException(errorText);
+        }
+
+        public StreamReader ExecuteAndGetOutputStream(string command)
+        {
+            var process = CreateProcess(command);
+            return process.StandardOutput;
+        }
+
+        Process CreateProcess(string command)
         {
             var startInfo = new ProcessStartInfo
             {
@@ -22,10 +41,11 @@ namespace GitViz.Logic
                 CreateNoWindow = false,
                 WindowStyle = ProcessWindowStyle.Hidden,
                 UseShellExecute = false,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
             };
             var process = Process.Start(startInfo);
-            return process.StandardOutput;
+            return process;
         }
     }
 }

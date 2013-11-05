@@ -15,6 +15,7 @@ namespace GitViz.Logic
                 if (string.IsNullOrWhiteSpace(line)) continue;
                 yield return ParseCommit(line);
             }
+            gitLogOutput.Close();
         }
 
         static readonly Regex ParseCommitRegex = new Regex(@"^(?<hash>\w{7})(?<parentHashes>( \w{7})+)?");

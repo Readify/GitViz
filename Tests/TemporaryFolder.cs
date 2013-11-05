@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading;
 
 namespace GitViz.Tests
 {
@@ -20,7 +21,20 @@ namespace GitViz.Tests
 
         public void Dispose()
         {
-            Directory.Delete(_path, true);
+            var triesRemaining = 25;
+            while (triesRemaining > 0)
+            {
+                try
+                {
+                    Directory.Delete(_path, true);
+                    return;
+                }
+                catch
+                {
+                    triesRemaining --;
+                    Thread.SpinWait(100);
+                }
+            }
         }
     }
 }
