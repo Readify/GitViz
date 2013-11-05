@@ -11,6 +11,14 @@ namespace GitViz.Tests.LogParserTests
             Description = "Initial commit",
             Result = "{Hash:4be5ef1}")]
         [TestCase(
+            "4be5ef1 (HEAD, master)",
+            Description = "Initial commit with head and master",
+            Result = "{Hash:4be5ef1,Refs:[HEAD,master]}")]
+        [TestCase(
+            "4be5ef1 (HEAD, origin/master, origin/HEAD, master)",
+            Description = "Initial commit with head and remote master",
+            Result = "{Hash:4be5ef1,Refs:[HEAD,origin/master,origin/HEAD,master]}")]
+        [TestCase(
             "4e4224c 4be5ef1",
             Description = "Commit with one parent",
             Result = "{Hash:4e4224c,ParentHashes:[4be5ef1]}")]

@@ -46,6 +46,23 @@ namespace GitViz.Tests
         }
 
         [Test]
+        public void ShouldReturnSingleCommitWithLocalRefs()
+        {
+            using (var tempFolder = new TemporaryFolder())
+            {
+                var tempRepository = new TemporaryRepository(tempFolder);
+                tempRepository.RunCommand("init");
+                TouchFileAndCommit(tempRepository);
+
+                var executor = new GitCommandExecutor(tempFolder.Path);
+                var log = new LogRetriever(executor).GetLog().ToArray();
+
+                var commit = log.Single();
+                CollectionAssert.AreEqual(new[] { "HEAD", "master" }, commit.Refs);
+            }
+        }
+
+        [Test]
         public void ShouldReturnTwoCommits()
         {
             using (var tempFolder = new TemporaryFolder())
