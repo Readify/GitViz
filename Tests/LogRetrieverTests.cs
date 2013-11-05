@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Text;
 using GitViz.Logic;
 using NUnit.Framework;
 
