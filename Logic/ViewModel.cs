@@ -58,11 +58,12 @@ namespace GitViz.Logic
         void RefreshGraph(LogRetriever logRetriever)
         {
             var commits = logRetriever.GetLog();
-            _graph = GenerateGraphFromCommits(commits);
+            var activeRefName = logRetriever.GetActiveReferenceName();
+            _graph = GenerateGraphFromCommits(commits, activeRefName);
             OnPropertyChanged("Graph");
         }
 
-        CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits)
+        CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits, string activeRefName)
         {
             commits = commits.ToList();
 
@@ -78,7 +79,11 @@ namespace GitViz.Logic
                 if (commitVertex.Commit.Refs == null) continue;
                 foreach (var refName in commitVertex.Commit.Refs)
                 {
-                    var refVertex = new Vertex(new Reference { Name = refName });
+                    var refVertex = new Vertex(new Reference
+                    {
+                        Name = refName,
+                        IsActive = refName == activeRefName
+                    });
                     graph.AddVertex(refVertex);
                     graph.AddEdge(new CommitEdge(refVertex, commitVertex));
                 }

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace GitViz.Logic
 {
@@ -20,6 +22,16 @@ namespace GitViz.Logic
             var command = string.Format("log --pretty=format:\"{0}\" -{1}", _parser.ExpectedOutputFormat, maxResults);
             var log = _executor.ExecuteAndGetOutputStream(command);
             return _parser.ParseCommits(log);
+        }
+
+        public string GetActiveReferenceName()
+        {
+            var branches = _executor.Execute("branch");
+            return branches
+                .Split(Environment.NewLine.ToCharArray())
+                .Where(l => l.StartsWith("* "))
+                .Select(l => l.Substring(2))
+                .SingleOrDefault();
         }
     }
 }

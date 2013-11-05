@@ -15,9 +15,14 @@
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">
-            <Border BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
+            <Border x:Name="Border" BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
                 <TextBlock Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
             </Border>
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="LightYellow" />
+                </DataTrigger>
+            </DataTemplate.Triggers>
         </DataTemplate>
         <ui:VertexTemplateSelector
             x:Key="VertexTemplateSelector"
