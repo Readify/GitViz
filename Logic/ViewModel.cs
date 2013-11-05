@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using GitViz.Logic.Annotations;
 
 namespace GitViz.Logic
@@ -38,7 +40,8 @@ namespace GitViz.Logic
                         EnableRaisingEvents = true,
                         IncludeSubdirectories = true
                     };
-                    FileSystemEventHandler onChanged = (sender, args) => RefreshGraph(logRetriever);
+                    var lag = new Timer(state => RefreshGraph(logRetriever), null, Timeout.Infinite, Timeout.Infinite);
+                    FileSystemEventHandler onChanged = (sender, args) => lag.Change(TimeSpan.FromMilliseconds(100), Timeout.InfiniteTimeSpan);
                     _watcher.Changed += onChanged;
                     _watcher.Created += onChanged;
                     _watcher.Deleted += onChanged;
