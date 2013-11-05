@@ -2,7 +2,7 @@
 
 namespace GitViz.Logic
 {
-    public class CommitGraph : BidirectionalGraph<Commit, CommitEdge>
+    public class CommitGraph : BidirectionalGraph<Vertex, CommitEdge>
     {
     }
 }

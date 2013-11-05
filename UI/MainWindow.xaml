@@ -9,16 +9,25 @@
         <logic:ViewModel />
     </Window.DataContext>
     <Window.Resources>
-        <DataTemplate x:Key="CommitTemplate" DataType="{x:Type logic:Commit}">
-            <TextBlock Text="{Binding Path=Hash, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+        <DataTemplate x:Key="CommitTemplate" DataType="{x:Type logic:Vertex}">
+            <Border BorderBrush="DarkSlateGray" Background="#daf5dd" BorderThickness="3" CornerRadius="10,10,10,10" Padding="10">
+                <TextBlock Text="{Binding Path=Commit.Hash, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+            </Border>
         </DataTemplate>
+        <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">
+            <Border BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
+                <TextBlock Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+            </Border>
+        </DataTemplate>
+        <ui:VertexTemplateSelector
+            x:Key="VertexTemplateSelector"
+            CommitTemplate="{StaticResource CommitTemplate}"
+            ReferenceTemplate="{StaticResource ReferenceTemplate}" />
         <Style TargetType="{x:Type graphsharp:VertexControl}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type graphsharp:VertexControl}">
-                        <Border BorderBrush="DarkSlateGray" Background="#daf5dd" BorderThickness="3" CornerRadius="10,10,10,10" Padding="10">
-                            <ContentPresenter Content="{TemplateBinding Vertex}" ContentTemplate="{StaticResource CommitTemplate}"/>
-                        </Border>
+                        <ContentPresenter Content="{TemplateBinding Vertex}" ContentTemplateSelector="{StaticResource VertexTemplateSelector}" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

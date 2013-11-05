@@ -2,9 +2,9 @@
 
 namespace GitViz.Logic
 {
-    public class CommitEdge : Edge<Commit>
+    public class CommitEdge : Edge<Vertex>
     {
-        public CommitEdge(Commit source, Commit target)
+        public CommitEdge(Vertex source, Vertex target)
             : base(source, target)
         {
         }

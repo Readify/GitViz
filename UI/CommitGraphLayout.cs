@@ -3,7 +3,7 @@ using GraphSharp.Controls;
 
 namespace UI
 {
-    public class CommitGraphLayout : GraphLayout<Commit, CommitEdge, CommitGraph>
+    public class CommitGraphLayout : GraphLayout<Vertex, CommitEdge, CommitGraph>
     {
     }
 }

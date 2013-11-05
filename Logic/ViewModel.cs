@@ -47,12 +47,15 @@ namespace GitViz.Logic
             commits = commits.ToList();
 
             var graph = new CommitGraph();
-            graph.AddVertexRange(commits);
-            foreach (var commit in commits.Where(c => c.ParentHashes != null))
-                foreach (var parentHash in commit.ParentHashes)
+
+            var commitVertexes = commits.Select(c => new Vertex(c)).ToArray();
+
+            graph.AddVertexRange(commitVertexes);
+            foreach (var commitVertex in commitVertexes.Where(c => c.Commit.ParentHashes != null))
+                foreach (var parentHash in commitVertex.Commit.ParentHashes)
                 {
-                    var parent = commits.SingleOrDefault(c => c.Hash == parentHash);
-                    if (parent != null) graph.AddEdge(new CommitEdge(commit, parent));
+                    var parentVertex = commitVertexes.SingleOrDefault(c => c.Commit.Hash == parentHash);
+                    if (parentVertex != null) graph.AddEdge(new CommitEdge(commitVertex, parentVertex));
                 }
 
             return graph;
