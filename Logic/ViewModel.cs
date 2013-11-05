@@ -31,20 +31,14 @@ namespace GitViz.Logic
                     var commandExecutor = new GitCommandExecutor(_repositoryPath);
                     var logRetriever = new LogRetriever(commandExecutor, _parser);
 
-                    var commits = logRetriever.GetLog();
-                    _graph = GenerateGraphFromCommits(commits);
+                    RefreshGraph(logRetriever);
 
                     _watcher = new FileSystemWatcher(Path.Combine(_repositoryPath, @".git\refs"))
                     {
                         EnableRaisingEvents = true,
                         IncludeSubdirectories = true
                     };
-                    FileSystemEventHandler onChanged = (sender, args) =>
-                    {
-                        commits = logRetriever.GetLog();
-                        _graph = GenerateGraphFromCommits(commits);
-                        OnPropertyChanged("Graph");
-                    };
+                    FileSystemEventHandler onChanged = (sender, args) => RefreshGraph(logRetriever);
                     _watcher.Changed += onChanged;
                     _watcher.Created += onChanged;
                     _watcher.Deleted += onChanged;
@@ -52,14 +46,20 @@ namespace GitViz.Logic
                 else
                 {
                     _graph = new CommitGraph();
+                    OnPropertyChanged("Graph");
                     if (_watcher != null) _watcher.Dispose();
                 }
-
-                OnPropertyChanged("Graph");
             }
         }
 
-        private CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits)
+        void RefreshGraph(LogRetriever logRetriever)
+        {
+            var commits = logRetriever.GetLog();
+            _graph = GenerateGraphFromCommits(commits);
+            OnPropertyChanged("Graph");
+        }
+
+        CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits)
         {
             commits = commits.ToList();
 
