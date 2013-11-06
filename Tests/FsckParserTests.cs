@@ -15,14 +15,14 @@ namespace GitViz.Tests
             using (var stream = new MemoryStream(Encoding.ASCII.GetBytes(input)))
             using (var reader = new StreamReader(stream))
             {
-                return new FsckParser().ParseDanglingCommitsIds(reader).ToArray();
+                return new FsckParser().ParseUnreachableCommitsIds(reader).ToArray();
             }
         }
 
         [Test]
         public void ShouldParseSingleDanglingCommitHash()
         {
-            var results = Test(@"dangling commit 1928ce6245d999026679aa08353d0aa04b8bf4ca");
+            var results = Test(@"unreachable commit 1928ce6245d999026679aa08353d0aa04b8bf4ca");
             var expected = new[] { "1928ce6245d999026679aa08353d0aa04b8bf4ca" };
             CollectionAssert.AreEqual(expected, results);
         }
@@ -30,8 +30,8 @@ namespace GitViz.Tests
         [Test]
         public void ShouldParseMultipleDanglingCommitHashes()
         {
-            var results = Test(@"dangling commit 1928ce6245d999026679aa08353d0aa04b8bf4ca
-dangling commit 5d021fe8cc958bc5ec945ec5066b394b7ffcfde8");
+            var results = Test(@"unreachable commit 1928ce6245d999026679aa08353d0aa04b8bf4ca
+unreachable commit 5d021fe8cc958bc5ec945ec5066b394b7ffcfde8");
 
             var expected = new[]
             {
@@ -46,7 +46,7 @@ dangling commit 5d021fe8cc958bc5ec945ec5066b394b7ffcfde8");
         public void ShouldIgnoreOtherLines()
         {
             var results = Test(@"foo
-dangling commit 1928ce6245d999026679aa08353d0aa04b8bf4ca
+unreachable commit 1928ce6245d999026679aa08353d0aa04b8bf4ca
 dangling tree 5d021fe8cc958bc5ec945ec5066b394b7ffcfde8
 blah");
             var expected = new[] { "1928ce6245d999026679aa08353d0aa04b8bf4ca" };

@@ -26,7 +26,7 @@ namespace GitViz.Tests.LogParserTests
 
             var expected = new[]
             {
-                "{Hash:4be5ef1,CommitDate:1383697102}"
+                "{Hash:4be5ef1,CommitDate:1383697102,ShortHash:4be5ef1}"
             };
 
             CollectionAssert.AreEqual(

@@ -5,9 +5,9 @@ namespace GitViz.Logic
 {
     public class FsckParser
     {
-        public IEnumerable<string> ParseDanglingCommitsIds(StreamReader fsck)
+        public IEnumerable<string> ParseUnreachableCommitsIds(StreamReader fsck)
         {
-            const string prefix = "dangling commit ";
+            const string prefix = "unreachable commit ";
             while (!fsck.EndOfStream)
             {
                 var line = fsck.ReadLine();

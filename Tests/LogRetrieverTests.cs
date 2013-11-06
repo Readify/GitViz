@@ -126,7 +126,7 @@ namespace GitViz.Tests
         }
 
         [Test]
-        public void ShouldReturnDanglingCommitHashesAfterRewind()
+        public void ShouldReturnUnreachableCommitHashesAfterRewind()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -141,8 +141,31 @@ namespace GitViz.Tests
                 var secondCommitHash = log.GetRecentCommits(1).Single().Hash;
                 tempRepository.RunCommand("reset --hard " + firstCommitHash);
 
-                var orphanedHashes = log.GetRecentOrphanHashes();
+                var orphanedHashes = log.GetRecentUnreachableCommitHashes();
                 CollectionAssert.AreEqual(new[] { secondCommitHash }, orphanedHashes);
+            }
+        }
+
+        [Test]
+        public void ShouldLimitNumberOfUnreachableCommitHashesRetrieved()
+        {
+            using (var tempFolder = new TemporaryFolder())
+            {
+                var tempRepository = new TemporaryRepository(tempFolder);
+                var executor = new GitCommandExecutor(tempFolder.Path);
+                var log = new LogRetriever(executor);
+
+                tempRepository.RunCommand("init");
+                TouchFileAndCommit(tempRepository);
+                var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
+
+                for (var i = 0; i < 20; i ++)
+                    TouchFileAndCommit(tempRepository);
+
+                tempRepository.RunCommand("reset --hard " + firstCommitHash);
+
+                var orphanedHashes = log.GetRecentUnreachableCommitHashes(10);
+                Assert.AreEqual(10, orphanedHashes.Count());
             }
         }
 

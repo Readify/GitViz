@@ -27,10 +27,15 @@ namespace GitViz.Logic
             return _logParser.ParseCommits(log);
         }
 
-        public IEnumerable<string> GetRecentOrphanHashes()
+        public IEnumerable<string> GetRecentUnreachableCommitHashes(int maxResults = 20)
         {
-            var fsck = _executor.ExecuteAndGetOutputStream("fsck --no-reflog");
-            return _fsckParser.ParseDanglingCommitsIds(fsck);
+            var fsck = _executor.ExecuteAndGetOutputStream("fsck --no-reflog --unreachable");
+            var hashes = _fsckParser.ParseUnreachableCommitsIds(fsck);
+            foreach (var hash in hashes.Take(maxResults))
+            {
+                yield return hash;
+            }
+            fsck.Close();
         }
 
         public string GetActiveReferenceName()
