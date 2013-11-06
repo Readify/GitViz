@@ -20,7 +20,7 @@
             </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="LightYellow" />
+                    <Setter TargetName="Border" Property="Background" Value="Yellow" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
