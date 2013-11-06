@@ -147,6 +147,29 @@ namespace GitViz.Tests
         }
 
         [Test]
+        public void ShouldReturnMultipleUnreachableCommitHashesAfterRewind()
+        {
+            using (var tempFolder = new TemporaryFolder())
+            {
+                var tempRepository = new TemporaryRepository(tempFolder);
+                var executor = new GitCommandExecutor(tempFolder.Path);
+                var log = new LogRetriever(executor);
+
+                tempRepository.RunCommand("init");
+                TouchFileAndCommit(tempRepository);
+                var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
+
+                for (var i = 0; i < 10; i++)
+                    TouchFileAndCommit(tempRepository);
+
+                tempRepository.RunCommand("reset --hard " + firstCommitHash);
+
+                var orphanedHashes = log.GetRecentUnreachableCommitHashes(100);
+                Assert.AreEqual(10, orphanedHashes.Count());
+            }
+        }
+
+        [Test]
         public void ShouldLimitNumberOfUnreachableCommitHashesRetrieved()
         {
             using (var tempFolder = new TemporaryFolder())
