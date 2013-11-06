@@ -18,5 +18,7 @@
         {
             get { return _value as Reference; }
         }
+
+        public bool Orphan { get; set; }
     }
 }

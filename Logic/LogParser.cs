@@ -12,7 +12,7 @@ namespace GitViz.Logic
 
         public IEnumerable<Commit> ParseCommits(StreamReader gitLogOutput)
         {
-            while (!gitLogOutput.EndOfStream)
+            while (gitLogOutput.BaseStream != null && !gitLogOutput.EndOfStream)
             {
                 var line = gitLogOutput.ReadLine();
                 if (string.IsNullOrWhiteSpace(line)) continue;

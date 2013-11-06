@@ -57,19 +57,29 @@ namespace GitViz.Logic
 
         void RefreshGraph(LogRetriever logRetriever)
         {
-            var commits = logRetriever.GetRecentCommits();
+            var commits = logRetriever.GetRecentCommits().ToArray();
             var activeRefName = logRetriever.GetActiveReferenceName();
-            _graph = GenerateGraphFromCommits(commits, activeRefName);
+
+            var reachableCommitHashes = commits.Select(c => c.Hash).ToArray();
+            var unreachableHashes = logRetriever.GetRecentUnreachableCommitHashes();
+            var unreachableCommits = logRetriever
+                .GetSpecificCommits(unreachableHashes)
+                .Where(c => !reachableCommitHashes.Contains(c.Hash))
+                .ToArray();
+
+            _graph = GenerateGraphFromCommits(commits, activeRefName, unreachableCommits);
             OnPropertyChanged("Graph");
         }
 
-        CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits, string activeRefName)
+        CommitGraph GenerateGraphFromCommits(IEnumerable<Commit> commits, string activeRefName, IEnumerable<Commit> unreachableCommits)
         {
             commits = commits.ToList();
 
             var graph = new CommitGraph();
 
-            var commitVertices = commits.Select(c => new Vertex(c)).ToList();
+            var commitVertices = commits.Select(c => new Vertex(c))
+                .Union(unreachableCommits.Select(c => new Vertex(c) { Orphan = true }))
+                .ToList();
 
             // Add all the vertices
             foreach (var commitVertex in commitVertices)
