@@ -39,7 +39,7 @@ namespace GitViz.Tests
 
                 var commit = log.Single();
                 Assert.IsNotNullOrEmpty(commit.Hash);
-                Assert.AreEqual(7, commit.Hash.Length);
+                Assert.AreEqual(40, commit.Hash.Length);
                 Assert.IsNull(commit.ParentHashes);
             }
         }
@@ -78,12 +78,12 @@ namespace GitViz.Tests
 
                 var commit = log.ElementAt(0);
                 Assert.IsNotNullOrEmpty(commit.Hash);
-                Assert.AreEqual(7, commit.Hash.Length);
+                Assert.AreEqual(40, commit.Hash.Length);
                 CollectionAssert.AreEqual(new[] { log.ElementAt(1).Hash }, commit.ParentHashes);
 
                 commit = log.ElementAt(1);
                 Assert.IsNotNullOrEmpty(commit.Hash);
-                Assert.AreEqual(7, commit.Hash.Length);
+                Assert.AreEqual(40, commit.Hash.Length);
                 Assert.IsNull(commit.ParentHashes);
             }
         }
@@ -122,6 +122,27 @@ namespace GitViz.Tests
                 var log = new LogRetriever(executor).GetRecentCommits(10).ToArray();
 
                 Assert.AreEqual(10, log.Length);
+            }
+        }
+
+        [Test]
+        public void ShouldReturnDanglingCommitHashesAfterRewind()
+        {
+            using (var tempFolder = new TemporaryFolder())
+            {
+                var tempRepository = new TemporaryRepository(tempFolder);
+                var executor = new GitCommandExecutor(tempFolder.Path);
+                var log = new LogRetriever(executor);
+
+                tempRepository.RunCommand("init");
+                TouchFileAndCommit(tempRepository);
+                var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
+                TouchFileAndCommit(tempRepository);
+                var secondCommitHash = log.GetRecentCommits(1).Single().Hash;
+                tempRepository.RunCommand("reset --hard " + firstCommitHash);
+
+                var orphanedHashes = log.GetRecentOrphanHashes();
+                CollectionAssert.AreEqual(new[] { secondCommitHash }, orphanedHashes);
             }
         }
 

@@ -7,21 +7,30 @@ namespace GitViz.Logic
     public class LogRetriever
     {
         readonly GitCommandExecutor _executor;
-        readonly LogParser _parser;
+        readonly LogParser _logParser;
+        readonly FsckParser _fsckParser;
 
         public LogRetriever(
             GitCommandExecutor executor,
-            LogParser parser = null)
+            LogParser logParser = null,
+            FsckParser fsckParser = null)
         {
             _executor = executor;
-            _parser = parser ?? new LogParser();
+            _logParser = logParser ?? new LogParser();
+            _fsckParser = fsckParser ?? new FsckParser();
         }
 
         public IEnumerable<Commit> GetRecentCommits(int maxResults = 20)
         {
-            var command = string.Format("log --all --pretty=format:\"{0}\" -{1}", _parser.ExpectedOutputFormat, maxResults);
+            var command = string.Format("log --all --pretty=format:\"{0}\" -{1}", _logParser.ExpectedOutputFormat, maxResults);
             var log = _executor.ExecuteAndGetOutputStream(command);
-            return _parser.ParseCommits(log);
+            return _logParser.ParseCommits(log);
+        }
+
+        public IEnumerable<string> GetRecentOrphanHashes()
+        {
+            var fsck = _executor.ExecuteAndGetOutputStream("fsck --no-reflog");
+            return _fsckParser.ParseDanglingCommitsIds(fsck);
         }
 
         public string GetActiveReferenceName()

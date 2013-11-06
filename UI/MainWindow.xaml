@@ -11,7 +11,7 @@
     <Window.Resources>
         <DataTemplate x:Key="CommitTemplate" DataType="{x:Type logic:Vertex}">
             <Border BorderBrush="DarkSlateGray" Background="#daf5dd" BorderThickness="3" CornerRadius="10,10,10,10" Padding="10">
-                <TextBlock Text="{Binding Path=Commit.Hash, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+                <TextBlock Text="{Binding Path=Commit.ShortHash, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
             </Border>
         </DataTemplate>
         <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">

@@ -63,6 +63,7 @@
     <Compile Include="Commit.cs" />
     <Compile Include="CommitEdge.cs" />
     <Compile Include="CommitGraph.cs" />
+    <Compile Include="FsckParser.cs" />
     <Compile Include="GitCommandExecutor.cs" />
     <Compile Include="LogParser.cs" />
     <Compile Include="LogRetriever.cs" />

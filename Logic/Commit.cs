@@ -7,9 +7,9 @@
         public string[] Refs { get; set; }
         public long CommitDate { get; set; }
 
-        public override string ToString()
+        public string ShortHash
         {
-            return Hash;
+            get { return Hash.Substring(0, 7); }
         }
     }
 }
