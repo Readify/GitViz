@@ -14,7 +14,7 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
@@ -30,7 +30,7 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
@@ -51,7 +51,7 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
@@ -68,8 +68,8 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
@@ -95,8 +95,8 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
@@ -116,7 +116,7 @@ namespace GitViz.Tests
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
                 for (var i = 0; i < 20; i ++)
-                    TouchFileAndCommit(tempRepository);
+                    tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var log = new LogRetriever(executor).GetRecentCommits(10).ToArray();
@@ -135,9 +135,9 @@ namespace GitViz.Tests
                 var log = new LogRetriever(executor);
 
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
                 var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
                 var secondCommitHash = log.GetRecentCommits(1).Single().Hash;
                 tempRepository.RunCommand("reset --hard " + firstCommitHash);
 
@@ -156,11 +156,11 @@ namespace GitViz.Tests
                 var log = new LogRetriever(executor);
 
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
                 var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
 
                 for (var i = 0; i < 10; i++)
-                    TouchFileAndCommit(tempRepository);
+                    tempRepository.TouchFileAndCommit();
 
                 tempRepository.RunCommand("reset --hard " + firstCommitHash);
 
@@ -179,11 +179,11 @@ namespace GitViz.Tests
                 var log = new LogRetriever(executor);
 
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
                 var firstCommitHash = log.GetRecentCommits(1).Single().Hash;
 
                 for (var i = 0; i < 20; i ++)
-                    TouchFileAndCommit(tempRepository);
+                    tempRepository.TouchFileAndCommit();
 
                 tempRepository.RunCommand("reset --hard " + firstCommitHash);
 
@@ -199,8 +199,8 @@ namespace GitViz.Tests
             {
                 var tempRepository = new TemporaryRepository(tempFolder);
                 tempRepository.RunCommand("init");
-                TouchFileAndCommit(tempRepository);
-                TouchFileAndCommit(tempRepository);
+                tempRepository.TouchFileAndCommit();
+                tempRepository.TouchFileAndCommit();
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
                 var logRetriever = new LogRetriever(executor);
@@ -212,13 +212,6 @@ namespace GitViz.Tests
 
                 CollectionAssert.AreEqual(recentCommits, specificCommits, new SerializedObjectComparer());
             }
-        }
-
-        private static void TouchFileAndCommit(TemporaryRepository tempRepository)
-        {
-            tempRepository.TouchFile("abc.txt");
-            tempRepository.RunCommand("add -A");
-            tempRepository.RunCommand("commit -m \"commit\"");
         }
     }
 }

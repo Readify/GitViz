@@ -21,10 +21,13 @@ namespace GitViz.Tests
             return _executor.Execute(command);
         }
 
-        public void TouchFile(string relativePath)
+        public void TouchFileAndCommit()
         {
-            var filePath = Path.Combine(_folderPath, relativePath);
+            var filePath = Path.Combine(_folderPath, "abc.txt");
             File.WriteAllText(filePath, DateTimeOffset.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture));
+
+            RunCommand("add -A");
+            RunCommand("commit -m \"commit\"");
         }
     }
 }

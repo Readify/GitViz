@@ -55,6 +55,7 @@
     <Compile Include="SerializedObjectComparer.cs" />
     <Compile Include="TemporaryRepository.cs" />
     <Compile Include="TemporaryFolder.cs" />
+    <Compile Include="RepositoryWatcherTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logic\Logic.csproj">

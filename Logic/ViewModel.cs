@@ -1,26 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading;
 using GitViz.Logic.Annotations;
 
 namespace GitViz.Logic
 {
     public class ViewModel : INotifyPropertyChanged
     {
-        string _repositoryPath;
+        string _repositoryPath = "";
         CommitGraph _graph = new CommitGraph();
-        FileSystemWatcher _watcher;
+        RepositoryWatcher _watcher;
 
         readonly LogParser _parser = new LogParser();
-
-        public ViewModel()
-        {
-            RepositoryPath = @"c:\temp\git-bash-test";
-        }
 
         public string RepositoryPath
         {
@@ -35,22 +28,18 @@ namespace GitViz.Logic
 
                     RefreshGraph(logRetriever);
 
-                    _watcher = new FileSystemWatcher(Path.Combine(_repositoryPath, @".git\refs"))
-                    {
-                        EnableRaisingEvents = true,
-                        IncludeSubdirectories = true
-                    };
-                    var lag = new Timer(state => RefreshGraph(logRetriever), null, Timeout.Infinite, Timeout.Infinite);
-                    FileSystemEventHandler onChanged = (sender, args) => lag.Change(TimeSpan.FromMilliseconds(100), Timeout.InfiniteTimeSpan);
-                    _watcher.Changed += onChanged;
-                    _watcher.Created += onChanged;
-                    _watcher.Deleted += onChanged;
+                    _watcher = new RepositoryWatcher(_repositoryPath);
+                    _watcher.ChangeDetected += (sender, args) => RefreshGraph(logRetriever);
                 }
                 else
                 {
                     _graph = new CommitGraph();
                     OnPropertyChanged("Graph");
-                    if (_watcher != null) _watcher.Dispose();
+                    if (_watcher != null)
+                    {
+                        _watcher.Dispose();
+                        _watcher = null;
+                    }
                 }
             }
         }
@@ -119,7 +108,8 @@ namespace GitViz.Logic
 
         static bool IsValidGitRepository(string path)
         {
-            return Directory.Exists(path)
+            return !string.IsNullOrEmpty(path)
+                && Directory.Exists(path)
                 && Directory.Exists(Path.Combine(path, ".git"));
         }
 
