@@ -4,7 +4,7 @@
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
-        Title="GitViz" Height="500" Width="400">
+        Title="GitViz" Height="600" Width="400">
     <Window.DataContext>
         <logic:ViewModel />
     </Window.DataContext>
