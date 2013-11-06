@@ -15,8 +15,16 @@ We also intelligently render unreachable commits to help people understand hard 
 
 ### Release Quality
 
-Alpha. This entire project so far consists of one Readify guy sitting down the back of a training course and tapping away for a few hours, no more.
+__Alpha.__ This entire project so far consists of one Readify guy sitting down the back of a training course and tapping away for a few hours, no more.
+
+### What is 'presentation quality'?
+
+Large. Clear. Projector-optimized and tested colors. Just enough information to be useful.
 
 ### What this tool does NOT do
 
 This is not a day-to-day visualizing tool for big, active repositories. It's optimised for repositories with less than 20 commits, for very specific training scenarios in live presentations.
+
+### How it works
+
+Shells out to `git.exe`, and then renders it with the excellent [GraphSharp](http://graphsharp.codeplex.com).
