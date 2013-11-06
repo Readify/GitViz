@@ -17,7 +17,7 @@ namespace GitViz.Tests
                 TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog().ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 Assert.AreEqual(1, log.Length);
             }
@@ -33,7 +33,7 @@ namespace GitViz.Tests
                 TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog().ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 Assert.AreEqual(1, log.Length);
 
@@ -54,7 +54,7 @@ namespace GitViz.Tests
                 TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog().ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 var commit = log.Single();
                 CollectionAssert.AreEqual(new[] { "HEAD", "master" }, commit.Refs);
@@ -72,7 +72,7 @@ namespace GitViz.Tests
                 TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog().ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 Assert.AreEqual(2, log.Length);
 
@@ -99,7 +99,7 @@ namespace GitViz.Tests
                 TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog().ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 var firstCommitReturned = log.ElementAt(0);
                 var secondCommitReturned = log.ElementAt(1);
@@ -119,7 +119,7 @@ namespace GitViz.Tests
                     TouchFileAndCommit(tempRepository);
 
                 var executor = new GitCommandExecutor(tempFolder.Path);
-                var log = new LogRetriever(executor).GetLog(10).ToArray();
+                var log = new LogRetriever(executor).GetRecentCommits(10).ToArray();
 
                 Assert.AreEqual(10, log.Length);
             }

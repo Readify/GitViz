@@ -22,11 +22,11 @@ namespace GitViz.Tests.LogParserTests
         [Test]
         public void ShouldParseSingleCommitHash()
         {
-            var results = Test(@"4be5ef1");
+            var results = Test(@"1383697102 4be5ef1");
 
             var expected = new[]
             {
-                "{Hash:4be5ef1}"
+                "{Hash:4be5ef1,CommitDate:1383697102}"
             };
 
             CollectionAssert.AreEqual(

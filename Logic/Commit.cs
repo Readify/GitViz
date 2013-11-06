@@ -5,6 +5,7 @@
         public string Hash { get; set; }
         public string[] ParentHashes { get; set; }
         public string[] Refs { get; set; }
+        public long CommitDate { get; set; }
 
         public override string ToString()
         {

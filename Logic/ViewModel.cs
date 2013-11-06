@@ -57,7 +57,7 @@ namespace GitViz.Logic
 
         void RefreshGraph(LogRetriever logRetriever)
         {
-            var commits = logRetriever.GetLog();
+            var commits = logRetriever.GetRecentCommits();
             var activeRefName = logRetriever.GetActiveReferenceName();
             _graph = GenerateGraphFromCommits(commits, activeRefName);
             OnPropertyChanged("Graph");
