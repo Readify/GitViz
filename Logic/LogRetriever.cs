@@ -22,7 +22,14 @@ namespace GitViz.Logic
 
         public IEnumerable<Commit> GetRecentCommits(int maxResults = 20)
         {
-            var command = string.Format("log --all --pretty=format:\"{0}\" -{1}", _logParser.ExpectedOutputFormat, maxResults);
+            var command = string.Format("log --all --format=\"{0}\" -{1}", _logParser.ExpectedOutputFormat, maxResults);
+            var log = _executor.ExecuteAndGetOutputStream(command);
+            return _logParser.ParseCommits(log);
+        }
+
+        public IEnumerable<Commit> GetSpecificCommits(IEnumerable<string> hashes)
+        {
+            var command = string.Format("log --format=\"{0}\" --no-walk {1}", _logParser.ExpectedOutputFormat, string.Join(" ", hashes));
             var log = _executor.ExecuteAndGetOutputStream(command);
             return _logParser.ParseCommits(log);
         }

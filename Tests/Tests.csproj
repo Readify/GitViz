@@ -52,6 +52,7 @@
     <Compile Include="LogRetrieverTests.cs" />
     <Compile Include="FsckParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializedObjectComparer.cs" />
     <Compile Include="TemporaryRepository.cs" />
     <Compile Include="TemporaryFolder.cs" />
   </ItemGroup>

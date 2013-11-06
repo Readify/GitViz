@@ -8,7 +8,7 @@ namespace GitViz.Tests
     public class LogRetrieverTests
     {
         [Test]
-        public void ShouldReturnSingleCommit()
+        public void ShouldReturnSingleRecentCommit()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -24,7 +24,7 @@ namespace GitViz.Tests
         }
 
         [Test]
-        public void ShouldReturnSingleCommitWithHashButNoParents()
+        public void ShouldReturnSingleRecentCommitWithHashButNoParents()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -45,7 +45,7 @@ namespace GitViz.Tests
         }
 
         [Test]
-        public void ShouldReturnSingleCommitWithLocalRefs()
+        public void ShouldReturnSingleRecentCommitWithLocalRefs()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -62,7 +62,7 @@ namespace GitViz.Tests
         }
 
         [Test]
-        public void ShouldReturnTwoCommits()
+        public void ShouldReturnTwoRecentCommits()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -109,7 +109,7 @@ namespace GitViz.Tests
         }
 
         [Test]
-        public void ShouldLimitNumberOfCommitsRetrieved()
+        public void ShouldLimitNumberOfRecentCommitsRetrieved()
         {
             using (var tempFolder = new TemporaryFolder())
             {
@@ -189,6 +189,28 @@ namespace GitViz.Tests
 
                 var orphanedHashes = log.GetRecentUnreachableCommitHashes(10);
                 Assert.AreEqual(10, orphanedHashes.Count());
+            }
+        }
+
+        [Test]
+        public void ShouldReturnSameDataForSpecificCommitsAsWhenRetrievedViaRecentCommits()
+        {
+            using (var tempFolder = new TemporaryFolder())
+            {
+                var tempRepository = new TemporaryRepository(tempFolder);
+                tempRepository.RunCommand("init");
+                TouchFileAndCommit(tempRepository);
+                TouchFileAndCommit(tempRepository);
+
+                var executor = new GitCommandExecutor(tempFolder.Path);
+                var logRetriever = new LogRetriever(executor);
+
+                var recentCommits = logRetriever.GetRecentCommits().ToArray();
+                var recentCommitHashes = recentCommits.Select(c => c.Hash);
+
+                var specificCommits = logRetriever.GetSpecificCommits(recentCommitHashes);
+
+                CollectionAssert.AreEqual(recentCommits, specificCommits, new SerializedObjectComparer());
             }
         }
 
