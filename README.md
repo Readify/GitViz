@@ -1,6 +1,22 @@
 GitViz
 ======
 
-Real-time Git visualizer to help with Git training.
+### Type commands. See their effect in real time. Perfect rendering for presentations.
+
+Among all things we do at [Readify](http://readify.net) to help people build better software, we teach a lot of teams about Git.
+
+For newbies, the concept of commit graphs, references, branches and merges can be a bit hard to visualize.
+
+Instead of trying to do all this on slides, or in sync on a whiteboard, we wanted to be able to run real commands and see a presentation quality diagram in real-time. This tool does that.
+
+We also intelligently render unreachable commits to help people understand hard resets and rebases.
 
 ![Screenshot animation](https://raw.github.com/Readify/GitViz/master/SuperHighTechAssets/AnimatedGifTour.gif)
+
+### Release Quality
+
+Alpha. This entire project so far consists of one Readify guy sitting down the back of a training course and tapping away for a few hours, no more.
+
+### What this tool does NOT do
+
+This is not a day-to-day visualizing tool for big, active repositories. It's optimised for repositories with less than 20 commits, for very specific training scenarios in live presentations.
