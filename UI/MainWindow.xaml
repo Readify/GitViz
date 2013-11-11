@@ -53,6 +53,7 @@
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Padding="10,0,0,0">Local Repo Path:</TextBlock>
             <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
         </DockPanel>
+        <Image Source="readify.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="30"></Image>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ui:CommitGraphLayout
                 Graph="{Binding Path=Graph}"
@@ -62,6 +63,5 @@
                 Margin="20"
             />
         </ScrollViewer>
-        <Image Source="readify.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="10"></Image>
     </Grid>
 </Window>
