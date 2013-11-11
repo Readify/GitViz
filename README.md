@@ -13,6 +13,10 @@ We also intelligently render unreachable commits to help people understand hard 
 
 ![Screenshot animation](https://raw.github.com/Readify/GitViz/master/SuperHighTechAssets/AnimatedGifTour.gif)
 
+### Where do I get it?
+
+Pre-built binaries are available at https://github.com/Readify/GitViz/releases
+
 ### Release Quality
 
 __Alpha.__ This entire project so far consists of one Readify guy sitting down the back of a training course and tapping away for a few hours, no more.
