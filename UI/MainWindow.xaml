@@ -4,7 +4,7 @@
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
-        Title="Readify GitViz (Alpha)" Height="600" Width="400">
+        Title="Readify GitViz (Alpha)" Height="600" Width="400" Icon="readify.ico">
     <Window.DataContext>
         <logic:ViewModel />
     </Window.DataContext>
@@ -62,5 +62,6 @@
                 Margin="20"
             />
         </ScrollViewer>
+        <Image Source="readify.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="10"></Image>
     </Grid>
 </Window>
