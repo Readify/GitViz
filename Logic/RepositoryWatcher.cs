@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Reactive.Linq;
 using System.Threading;
 
 namespace GitViz.Logic
 {
     public class RepositoryWatcher : IDisposable
     {
-        public const int DampeningIntervalInMilliseconds = 100;
+        public const int DampeningIntervalInMilliseconds = 1000;
 
         readonly FileSystemWatcher _watcher;
 
@@ -27,12 +30,26 @@ namespace GitViz.Logic
                 IncludeSubdirectories = true
             };
 
-            var lag = new Timer(state => OnChangeDetected(), null, Timeout.Infinite, Timeout.Infinite);
-            FileSystemEventHandler onChanged = (sender, args) => lag.Change(TimeSpan.FromMilliseconds(DampeningIntervalInMilliseconds), Timeout.InfiniteTimeSpan);
+            //using ReactiveExtensions here
+            //first - we setup an observable for all the various FSW events
+            var repoChanges = Observable.FromEventPattern<FileSystemEventHandler, FileSystemEventArgs>(handler =>
+                {
+                    _watcher.Changed += handler;
+                    _watcher.Created += handler;
+                    _watcher.Deleted += handler;
+                },
+                handler =>
+                {
+                    _watcher.Changed -= handler;
+                    _watcher.Created -= handler;
+                    _watcher.Deleted -= handler;
+                });
 
-            _watcher.Changed += onChanged;
-            _watcher.Created += onChanged;
-            _watcher.Deleted += onChanged;
+            //next - we wait until our dampening interval has expired without any new FSW events being raised and
+            //at that point trigger the OnChangeDetected method
+            repoChanges
+                .Throttle(TimeSpan.FromMilliseconds(DampeningIntervalInMilliseconds))
+                .Subscribe(h => OnChangeDetected());
         }
 
         public void Dispose()

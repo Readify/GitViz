@@ -44,7 +44,7 @@ namespace GitViz.Tests
                 preSteps(tempRepository);
 
                 // Let everything stablize
-                Thread.Sleep(RepositoryWatcher.DampeningIntervalInMilliseconds * 10);
+                Thread.Sleep(RepositoryWatcher.DampeningIntervalInMilliseconds * 2);
 
                 var triggered = false;
                 var watcher = new RepositoryWatcher(tempFolder.Path);
@@ -52,7 +52,7 @@ namespace GitViz.Tests
 
                 triggerSteps(tempRepository);
 
-                Thread.Sleep(RepositoryWatcher.DampeningIntervalInMilliseconds * 10);
+                Thread.Sleep(RepositoryWatcher.DampeningIntervalInMilliseconds * 2);
 
                 Assert.IsTrue(triggered);
             }
