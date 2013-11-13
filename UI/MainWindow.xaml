@@ -61,6 +61,7 @@
                 OverlapRemovalAlgorithmType="FSA"
                 HighlightAlgorithmType="Simple"
                 Margin="20"
+                IsAnimationEnabled="False"
             />
         </ScrollViewer>
     </Grid>
