@@ -21,9 +21,17 @@ namespace GitViz.Logic
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
-        public RepositoryWatcher(string path)
+        public RepositoryWatcher(string path, Boolean isBare)
         {
-            var gitFolder = Path.Combine(path, @".git");
+            String gitFolder;
+            if (isBare) { 
+                gitFolder = path; 
+            }
+            else 
+            {
+                gitFolder = Path.Combine(path, @".git"); 
+            }
+
             _watcher = new FileSystemWatcher(gitFolder)
             {
                 EnableRaisingEvents = true,
