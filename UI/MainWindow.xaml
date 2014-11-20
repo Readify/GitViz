@@ -27,6 +27,9 @@
                 <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
                     <Setter TargetName="Border" Property="Background" Value="Yellow" />
                 </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsHead}" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="IndianRed" />
+                </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
         <ui:VertexTemplateSelector
