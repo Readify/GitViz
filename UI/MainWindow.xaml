@@ -21,7 +21,7 @@
         </DataTemplate>
         <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">
             <Border x:Name="Border" BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
-                <TextBlock Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+                <TextBlock x:Name="Text" Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Red" FontSize="14pt" FontFamily="Consolas" />
             </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
@@ -29,6 +29,13 @@
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Reference.IsHead}" Value="true">
                     <Setter TargetName="Border" Property="Background" Value="IndianRed" />
+                    <Setter TargetName="Text" Property="Foreground" Value="Black" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsTag}" Value="true">
+                    <Setter TargetName="Text" Property="Foreground" Value="Blue" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsRemote}" Value="true">
+                    <Setter TargetName="Text" Property="Foreground" Value="Green" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
