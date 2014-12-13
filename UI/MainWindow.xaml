@@ -4,7 +4,7 @@
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
-        Title="Readify GitViz (Alpha)" Height="600" Width="400" Icon="readify.ico">
+        Title="{Binding WindowTitle, Mode=OneWay}" Height="600" Width="400" Icon="readify.ico">
     <Window.DataContext>
         <logic:ViewModel />
     </Window.DataContext>

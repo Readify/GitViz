@@ -15,6 +15,17 @@ namespace GitViz.Logic
 
         readonly LogParser _parser = new LogParser();
 
+        public string WindowTitle
+        {
+            get
+            {
+                return "Readify GitViz (Alpha)"
+                    + (string.IsNullOrWhiteSpace(_repositoryPath)
+                        ? string.Empty
+                        : " - " + Path.GetFileName(_repositoryPath));
+            }
+        }
+
         public string RepositoryPath
         {
             get { return _repositoryPath; }
@@ -23,6 +34,7 @@ namespace GitViz.Logic
                 _repositoryPath = value;
                 if (IsValidGitRepository(_repositoryPath))
                 {
+                    OnPropertyChanged("WindowTitle");
                     var commandExecutor = new GitCommandExecutor(_repositoryPath);
                     var logRetriever = new LogRetriever(commandExecutor, _parser);
 
