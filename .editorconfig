@@ -1,0 +1,19 @@
+; Visual Studio Extension : http://visualstudiogallery.msdn.microsoft.com/c8bccfe2-650c-4b42-bc5c-845e21f96328
+; See http://editorconfig.org/ for more informations
+
+; Top-most EditorConfig file
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+charset = utf-8
+insert_final_newline = true
+
+[*.xaml]
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+charset = utf-8
+insert_final_newline = true
