@@ -93,8 +93,8 @@ namespace GitViz.Logic
                 graph.AddVertex(commitVertex);
 
                 if (commitVertex.Commit.Refs == null) continue;
-                bool isHeadHere = false;
-                bool isHeadSet = false;
+                var isHeadHere = false;
+                var isHeadSet = false;
                 foreach (var refName in commitVertex.Commit.Refs)
                 {
                     if (refName == Reference.HEAD)
@@ -110,11 +110,9 @@ namespace GitViz.Logic
                     });
                     graph.AddVertex(refVertex);
                     graph.AddEdge(new CommitEdge(refVertex, commitVertex));
-                    if (refVertex.Reference.IsActive)
-                    {
-                        isHeadSet = true;
-                        graph.AddEdge(new CommitEdge(headVertex, refVertex));
-                    }
+                    if (!refVertex.Reference.IsActive) continue;
+                    isHeadSet = true;
+                    graph.AddEdge(new CommitEdge(headVertex, refVertex));
                 }
                 if (isHeadHere && !isHeadSet)
                     graph.AddEdge(new CommitEdge(headVertex, commitVertex));
