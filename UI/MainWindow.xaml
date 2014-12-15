@@ -4,7 +4,7 @@
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
-        Title="Readify GitViz (Alpha)" Height="600" Width="400" Icon="readify.ico">
+        Title="{Binding WindowTitle, Mode=OneWay}" Height="600" Width="400" Icon="readify.ico">
     <Window.DataContext>
         <logic:ViewModel />
     </Window.DataContext>
@@ -21,11 +21,21 @@
         </DataTemplate>
         <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">
             <Border x:Name="Border" BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
-                <TextBlock Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Black" FontSize="14pt" FontFamily="Consolas" />
+                <TextBlock x:Name="Text" Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Red" FontSize="14pt" FontFamily="Consolas" />
             </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
                     <Setter TargetName="Border" Property="Background" Value="Yellow" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsHead}" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="IndianRed" />
+                    <Setter TargetName="Text" Property="Foreground" Value="Black" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsTag}" Value="true">
+                    <Setter TargetName="Text" Property="Foreground" Value="Blue" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Reference.IsRemote}" Value="true">
+                    <Setter TargetName="Text" Property="Foreground" Value="Green" />
                 </DataTrigger>
             </DataTemplate.Triggers>
         </DataTemplate>
@@ -48,10 +58,11 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Background="WhiteSmoke">
+        <DockPanel Grid.Row="0" Background="WhiteSmoke" LastChildFill="True">
             <Separator DockPanel.Dock="Bottom" />
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Padding="10,0,0,0">Local Repo Path:</TextBlock>
-            <TextBox Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10" />
+            <Button x:Name="BtnOpenRepository" Click="BtnOpenRepository_OnClick" Width="15" Height="30" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="0,10, 10, 10">...</Button>
+            <TextBox x:Name="TxtRepositoryPath" Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10, 10, 0, 10" />
         </DockPanel>
         <Image Source="readify.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="30"></Image>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
