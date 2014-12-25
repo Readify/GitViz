@@ -39,8 +39,18 @@ namespace UI
             if (!viewModel.IsNewRepository)
                 return;
             viewModel.IsNewRepository = false;
+            ResizeWindowDependingOnGraphSize();
+        }
+
+        private void ResizeWindowDependingOnGraphSize()
+        {
             Width = Math.Min(Math.Max(graph.ActualWidth + 80, 400), SystemParameters.PrimaryScreenWidth - Left);
             Height = Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), SystemParameters.PrimaryScreenHeight - Top);
+        }
+
+        private void BtnResizeWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            ResizeWindowDependingOnGraphSize();
         }
     }
 }

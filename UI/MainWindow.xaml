@@ -64,7 +64,8 @@
         <DockPanel Grid.Row="0" Background="WhiteSmoke" LastChildFill="True">
             <Separator DockPanel.Dock="Bottom" />
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Padding="10,0,0,0">Local Repo Path:</TextBlock>
-            <Button x:Name="BtnOpenRepository" Click="BtnOpenRepository_OnClick" Width="15" Height="30" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="0,10, 10, 10">...</Button>
+            <Button x:Name="BtnResizeWindow" Click="BtnResizeWindow_OnClick" Height="30" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="10" ToolTip="Resize automatically the window depending on graph size">Resize</Button>
+            <Button x:Name="BtnOpenRepository" Click="BtnOpenRepository_OnClick" Width="15" Height="30" DockPanel.Dock="Right" VerticalAlignment="Bottom" Margin="0,10, 0, 10">...</Button>
             <TextBox x:Name="TxtRepositoryPath" Padding="5" Text="{Binding Path=RepositoryPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10, 10, 0, 10" />
         </DockPanel>
         <Image Source="readify.png" Grid.Row="1" Stretch="None" HorizontalAlignment="Right" VerticalAlignment="Bottom" Opacity="0.5" Margin="30"></Image>
