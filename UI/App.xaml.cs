@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -16,9 +16,9 @@ namespace UI
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             var wnd = new MainWindow();
+            wnd.Show();
             if (e.Args.Length == 1)
                 wnd.TxtRepositoryPath.Text = e.Args[0];
-            wnd.Show();
         }
 
     }
