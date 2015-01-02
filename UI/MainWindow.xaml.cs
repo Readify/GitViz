@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Interop;
 using GitViz.Logic;
 
 namespace UI
@@ -42,10 +43,16 @@ namespace UI
             ResizeWindowDependingOnGraphSize();
         }
 
+        public System.Windows.Forms.Screen GetCurrentScreen()
+        {
+            return System.Windows.Forms.Screen.FromHandle(new WindowInteropHelper(this).Handle);
+        }
+
         private void ResizeWindowDependingOnGraphSize()
         {
-            Width = Math.Min(Math.Max(graph.ActualWidth + 80, 400), SystemParameters.PrimaryScreenWidth - Left);
-            Height = Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), SystemParameters.PrimaryScreenHeight - Top);
+            var currentScreen = GetCurrentScreen();
+            Width = Math.Min(Math.Max(graph.ActualWidth + 80, 400), currentScreen.Bounds.Width - Left + currentScreen.Bounds.Left);
+            Height = Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), currentScreen.Bounds.Height - Top + currentScreen.Bounds.Top);
         }
 
         private void BtnResizeWindow_OnClick(object sender, RoutedEventArgs e)
