@@ -1,5 +1,7 @@
-﻿using System;
+using System;
 using System.Windows;
+using System.Windows.Interop;
+using GitViz.Logic;
 
 namespace UI
 {
@@ -8,6 +10,13 @@ namespace UI
         public MainWindow()
         {
             InitializeComponent();
+            WindowPlacement();
+        }
+
+        private void WindowPlacement()
+        {
+            Top = SystemParameters.WorkArea.Top;
+            Left = SystemParameters.WorkArea.Left;
         }
 
         private void BtnOpenRepository_OnClick(object sender, RoutedEventArgs e)
@@ -23,6 +32,32 @@ namespace UI
             {
                 TxtRepositoryPath.Text = dialog.SelectedPath;
             }
+        }
+
+        private void Graph_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var viewModel = (ViewModel)DataContext;
+            if (!viewModel.IsNewRepository)
+                return;
+            viewModel.IsNewRepository = false;
+            ResizeWindowDependingOnGraphSize();
+        }
+
+        public System.Windows.Forms.Screen GetCurrentScreen()
+        {
+            return System.Windows.Forms.Screen.FromHandle(new WindowInteropHelper(this).Handle);
+        }
+
+        private void ResizeWindowDependingOnGraphSize()
+        {
+            var currentScreen = GetCurrentScreen();
+            Width = Math.Min(Math.Max(graph.ActualWidth + 80, 400), currentScreen.Bounds.Width - Left + currentScreen.Bounds.Left);
+            Height = Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), currentScreen.Bounds.Height - Top + currentScreen.Bounds.Top);
+        }
+
+        private void BtnResizeWindow_OnClick(object sender, RoutedEventArgs e)
+        {
+            ResizeWindowDependingOnGraphSize();
         }
     }
 }
