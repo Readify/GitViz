@@ -7,9 +7,14 @@ namespace UI
 {
     public partial class MainWindow
     {
+        public double DpiHeightFactor { get; set; }
+
+        public double DpiWidthFactor { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            SetDpiFactor();
             WindowPlacement();
         }
 
@@ -48,11 +53,28 @@ namespace UI
             return System.Windows.Forms.Screen.FromHandle(new WindowInteropHelper(this).Handle);
         }
 
+        public void SetDpiFactor()
+        {
+            var mainWindowPresentationSource = PresentationSource.FromVisual(Application.Current.MainWindow);
+            if (mainWindowPresentationSource != null)
+            {
+                var transformToDevice = mainWindowPresentationSource.CompositionTarget.TransformToDevice;
+                DpiWidthFactor = transformToDevice.M11;
+                DpiHeightFactor = transformToDevice.M22;
+            }
+            else
+            {
+                DpiWidthFactor = 1;
+                DpiHeightFactor = 1;
+            }
+        }
+
+
         private void ResizeWindowDependingOnGraphSize()
         {
             var currentScreen = GetCurrentScreen();
-            Width = Math.Min(Math.Max(graph.ActualWidth + 80, 400), currentScreen.Bounds.Width - Left + currentScreen.Bounds.Left);
-            Height = Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), currentScreen.Bounds.Height - Top + currentScreen.Bounds.Top);
+            Width = DpiWidthFactor * Math.Min(Math.Max(graph.ActualWidth + 80, 400), currentScreen.Bounds.Width - Left + currentScreen.Bounds.Left);
+            Height = DpiWidthFactor * Math.Min(Math.Max(graph.ActualHeight + grid.RowDefinitions[0].ActualHeight + 80, 200), currentScreen.Bounds.Height - Top + currentScreen.Bounds.Top);
         }
 
         private void BtnResizeWindow_OnClick(object sender, RoutedEventArgs e)
