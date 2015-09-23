@@ -47,7 +47,7 @@ namespace GitViz.Tests
                 Thread.Sleep(RepositoryWatcher.DampeningIntervalInMilliseconds * 2);
 
                 var triggered = false;
-                var watcher = new RepositoryWatcher(tempFolder.Path);
+                var watcher = new RepositoryWatcher(tempFolder.Path, false);
                 watcher.ChangeDetected += (sender, args) => { triggered = true; };
 
                 triggerSteps(tempRepository);

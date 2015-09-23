@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using GitViz.Logic.Annotations;
+using System;
+using System.Text.RegularExpressions;
 
 namespace GitViz.Logic
 {
@@ -43,7 +45,7 @@ namespace GitViz.Logic
 
                     IsNewRepository = true;
 
-                    _watcher = new RepositoryWatcher(_repositoryPath);
+                    _watcher = new RepositoryWatcher(_repositoryPath, IsBareGitRepository(_repositoryPath));
                     _watcher.ChangeDetected += (sender, args) => RefreshGraph(logRetriever);
                 }
                 else
@@ -143,7 +145,15 @@ namespace GitViz.Logic
         {
             return !string.IsNullOrEmpty(path)
                 && Directory.Exists(path)
-                && Directory.Exists(Path.Combine(path, ".git"));
+                && (Directory.Exists(Path.Combine(path, ".git")) ||
+                 IsBareGitRepository(path));
+        }
+
+        static Boolean IsBareGitRepository(String path) 
+        {
+            String configFileForBareRepository = Path.Combine(path, "config"); 
+            return File.Exists(configFileForBareRepository) &&
+                  Regex.IsMatch(File.ReadAllText(configFileForBareRepository), @"bare\s*=\s*true", RegexOptions.IgnoreCase);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
