@@ -32,3 +32,12 @@ This is not a day-to-day visualizing tool for big, active repositories. It's opt
 ### How it works
 
 Shells out to `git.exe`, and then renders it with the excellent [GraphSharp](http://graphsharp.codeplex.com).
+
+### FAQ
+#### How can I remove dangling commits?
+GitViz shows dangling commits to make it easier to visualise rebases and other history rewrites. To remove those commits to clean things up run (this will delete *all* unreachable objects in the repo, be careful):
+
+```
+git reflog expire --expire-unreachable=now --all
+git gc --prune=now
+```
