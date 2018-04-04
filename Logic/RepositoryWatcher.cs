@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -62,7 +62,7 @@ namespace GitViz.Logic
 
         public void Dispose()
         {
-            _watcher.Dispose();
+            _watcher?.Dispose();
         }
 
         ~RepositoryWatcher()
