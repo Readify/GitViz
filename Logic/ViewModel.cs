@@ -34,7 +34,7 @@ namespace GitViz.Logic
             get { return _repositoryPath; }
             set
             {
-                _repositoryPath = value;
+                _repositoryPath = value.TrimEnd();
                 if (IsValidGitRepository(_repositoryPath))
                 {
                     OnPropertyChanged("WindowTitle");
