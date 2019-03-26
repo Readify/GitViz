@@ -1,9 +1,11 @@
 GitViz
 ======
 
+> Psst, hey... are you looking for a .NET Core 3 version? Check out the `netcore` branch. Contributions and PRs on that branch are very welcome!
+
 ### Type commands. See their effect in real time. Perfect rendering for presentations.
 
-Among all things we do at [Readify](http://readify.net) to help people build better software, we teach a lot of teams about Git.
+Among the many things we do at [Readify](http://readify.net) to help people build better software, we teach people about Git.
 
 For newbies, the concept of commit graphs, references, branches and merges can be a bit hard to visualize.
 
@@ -16,6 +18,8 @@ We also intelligently render unreachable commits to help people understand hard 
 ### Where do I get it?
 
 Pre-built binaries are available at https://github.com/Readify/GitViz/releases
+
+### 
 
 ### Release Quality
 
