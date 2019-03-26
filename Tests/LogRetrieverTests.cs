@@ -1,4 +1,4 @@
-﻿using System.Linq;
+using System.Linq;
 using GitViz.Logic;
 using NUnit.Framework;
 
@@ -38,7 +38,8 @@ namespace GitViz.Tests
                 Assert.AreEqual(1, log.Length);
 
                 var commit = log.Single();
-                Assert.IsNotNullOrEmpty(commit.Hash);
+                Assert.IsNotNull(commit.Hash);
+                Assert.IsNotEmpty(commit.Hash);
                 Assert.AreEqual(40, commit.Hash.Length);
                 Assert.IsNull(commit.ParentHashes);
             }
@@ -77,12 +78,14 @@ namespace GitViz.Tests
                 Assert.AreEqual(2, log.Length);
 
                 var commit = log.ElementAt(0);
-                Assert.IsNotNullOrEmpty(commit.Hash);
+                Assert.IsNotNull(commit.Hash);
+                Assert.IsNotEmpty(commit.Hash);
                 Assert.AreEqual(40, commit.Hash.Length);
                 CollectionAssert.AreEqual(new[] { log.ElementAt(1).Hash }, commit.ParentHashes);
 
                 commit = log.ElementAt(1);
-                Assert.IsNotNullOrEmpty(commit.Hash);
+                Assert.IsNotNull(commit.Hash);
+                Assert.IsNotEmpty(commit.Hash);
                 Assert.AreEqual(40, commit.Hash.Length);
                 Assert.IsNull(commit.ParentHashes);
             }

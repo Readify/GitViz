@@ -1,7 +1,7 @@
 <Window x:Class="UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
+        xmlns:logic="clr-namespace:GitViz.Logic;assembly=Logic"
         xmlns:ui="clr-namespace:UI"
         xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
