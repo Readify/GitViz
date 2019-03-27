@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 
@@ -15,13 +15,20 @@ namespace GitViz.Logic
 
         public string Execute(string command)
         {
-            var process = CreateProcess(command);
-            process.WaitForExit(10000);
+            string errorText;
+            try
+            {
+                var process = CreateProcess(command);
+                process.WaitForExit(10000);
 
-            if (process.ExitCode == 0)
-                return process.StandardOutput.ReadToEnd();
+                if (process.ExitCode == 0)
+                    return process.StandardOutput.ReadToEnd();
+                errorText = process.StandardError.ReadToEnd();
+            } catch (System.ComponentModel.Win32Exception)
+            {
+                errorText = "Could not locate git. Check it is installed and in your PATH settings";
+            }
 
-            var errorText = process.StandardError.ReadToEnd();
             throw new ApplicationException(errorText);
         }
 
@@ -43,7 +50,15 @@ namespace GitViz.Logic
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
             };
-            var process = Process.Start(startInfo);
+            Process process;
+            try
+            {
+                process = Process.Start(startInfo);
+            } catch (System.ComponentModel.Win32Exception e)
+            {
+                //should alert user that git couldn't be found
+                throw e;
+            }
             return process;
         }
     }
