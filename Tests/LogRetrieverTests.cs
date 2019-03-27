@@ -58,7 +58,7 @@ namespace GitViz.Tests
                 var log = new LogRetriever(executor).GetRecentCommits().ToArray();
 
                 var commit = log.Single();
-                CollectionAssert.AreEqual(new[] { "HEAD", "master" }, commit.Refs);
+                CollectionAssert.AreEqual(new[] { "HEAD -> master" }, commit.Refs);
             }
         }
 
