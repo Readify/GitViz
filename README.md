@@ -35,7 +35,7 @@ This is not a day-to-day visualizing tool for big, active repositories. It's opt
 
 ### How it works
 
-Shells out to `git.exe`, and then renders it with the excellent [GraphSharp](http://graphsharp.codeplex.com).
+Shells out to `git.exe`, and then renders it with the excellent [GraphShape](https://github.com/KeRNeLith/GraphShape).
 
 ### FAQ
 #### How can I remove dangling commits?

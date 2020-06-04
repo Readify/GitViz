@@ -37,23 +37,14 @@
     <ApplicationIcon>readify.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GraphSharp">
-      <HintPath>..\packages\GraphSharp.1.1.0.0\lib\net40\GraphSharp.dll</HintPath>
+    <Reference Include="GraphShape">
+      <HintPath>..\packages\GraphShape.1.0.0\lib\net45\GraphShape.dll</HintPath>
     </Reference>
-    <Reference Include="GraphSharp.Controls">
-      <HintPath>..\packages\GraphSharp.1.1.0.0\lib\net40\GraphSharp.Controls.dll</HintPath>
+    <Reference Include="GraphShape.Controls">
+      <HintPath>..\packages\GraphShape.Controls.1.0.0\lib\net45\GraphShape.Controls.dll</HintPath>
     </Reference>
-    <Reference Include="QuickGraph">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Data">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Graphviz">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Graphviz.dll</HintPath>
-    </Reference>
-    <Reference Include="QuickGraph.Serialization">
-      <HintPath>..\packages\QuickGraph.3.6.61119.7\lib\net4\QuickGraph.Serialization.dll</HintPath>
+    <Reference Include="QuikGraph">
+      <HintPath>..\packages\QuikGraph.2.1.0\lib\net45\QuikGraph.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
