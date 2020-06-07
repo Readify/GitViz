@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:logic="clr-namespace:GitViz.Logic;assembly=GitViz.Logic"
         xmlns:ui="clr-namespace:UI"
-        xmlns:graphsharp="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+        xmlns:graphshape="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         mc:Ignorable="d" d:DesignHeight="600" d:DesignWidth="400"
@@ -46,10 +46,10 @@
             x:Key="VertexTemplateSelector"
             CommitTemplate="{StaticResource CommitTemplate}"
             ReferenceTemplate="{StaticResource ReferenceTemplate}" />
-        <Style TargetType="{x:Type graphsharp:VertexControl}">
+        <Style TargetType="{x:Type graphshape:VertexControl}">
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type graphsharp:VertexControl}">
+                    <ControlTemplate TargetType="{x:Type graphshape:VertexControl}">
                         <ContentPresenter Content="{TemplateBinding Vertex}" ContentTemplateSelector="{StaticResource VertexTemplateSelector}" />
                     </ControlTemplate>
                 </Setter.Value>
@@ -72,7 +72,7 @@
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
             <ui:CommitGraphLayout x:Name="graph"
                 Graph="{Binding Path=Graph}"
-                LayoutAlgorithmType="EfficientSugiyama"
+                LayoutAlgorithmType="Sugiyama"
                 OverlapRemovalAlgorithmType="FSA"
                 HighlightAlgorithmType="Simple"
                 Margin="20"

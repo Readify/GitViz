@@ -1,4 +1,4 @@
-﻿using QuickGraph;
+using QuikGraph;
 
 namespace GitViz.Logic
 {
