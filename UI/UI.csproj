@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -38,13 +38,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="GraphShape">
-      <HintPath>..\packages\GraphShape.1.0.0\lib\net45\GraphShape.dll</HintPath>
+      <HintPath>..\packages\GraphShape.1.1.0\lib\net45\GraphShape.dll</HintPath>
     </Reference>
     <Reference Include="GraphShape.Controls">
-      <HintPath>..\packages\GraphShape.Controls.1.0.0\lib\net45\GraphShape.Controls.dll</HintPath>
+      <HintPath>..\packages\GraphShape.Controls.1.1.0\lib\net45\GraphShape.Controls.dll</HintPath>
     </Reference>
     <Reference Include="QuikGraph">
-      <HintPath>..\packages\QuikGraph.2.1.0\lib\net45\QuikGraph.dll</HintPath>
+      <HintPath>..\packages\QuikGraph.2.2.0\lib\net45\QuikGraph.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
