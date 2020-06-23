@@ -1,11 +1,11 @@
 GitViz
 ======
 
-> GitViz now runs as a self-containeed .NET Core 3.1 application
+> GitViz is now available as a .NET Core 3.1 application
 
 ### Type commands. See their effect in real time. Perfect rendering for presentations.
 
-Among all things we do at Readify (now [Telstra Purple](https://purple.telstra.com)) to help people build better software, we people about Git.
+Among all things we do at Readify (now [Telstra Purple](https://purple.telstra.com)) to help people build better software, we teach people about Git.
 
 For newbies, the concept of commit graphs, references, branches and merges can be a bit hard to visualize.
 
