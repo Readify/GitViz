@@ -51,14 +51,7 @@ namespace GitViz.Logic
                 RedirectStandardError = true
             };
             Process process;
-            try
-            {
-                process = Process.Start(startInfo);
-            } catch (System.ComponentModel.Win32Exception e)
-            {
-                //should alert user that git couldn't be found
-                throw e;
-            }
+            process = Process.Start(startInfo);
             return process;
         }
     }

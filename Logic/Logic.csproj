@@ -1,12 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphSharp" Version="1.1.0.0" />
-    <PackageReference Include="System.Reactive.Core" Version="4.2.0-preview.102" />
-    <PackageReference Include="WPFExtensions" Version="1.0.0" />
+    <PackageReference Include="QuikGraph" Version="2.2.0" />
+    <PackageReference Include="System.Reactive.Core" Version="4.4.1" />
   </ItemGroup>
 </Project>

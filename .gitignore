@@ -2,6 +2,7 @@
 [Bb]in/
 [Oo]bj/
 .vs
+.vscode
 
 # mstest test results
 TestResults

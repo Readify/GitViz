@@ -2,9 +2,11 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>readify.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,7 +21,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphSharp" Version="1.1.0.0" />
+    <PackageReference Include="GraphShape" Version="1.1.0" />
+    <PackageReference Include="GraphShape.Controls" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
