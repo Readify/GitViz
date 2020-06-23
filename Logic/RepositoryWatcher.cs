@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Reactive.Linq;
-using System.Threading;
 
 namespace GitViz.Logic
 {

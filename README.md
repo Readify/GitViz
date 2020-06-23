@@ -1,11 +1,11 @@
 GitViz
 ======
 
-> Psst, hey... are you looking for a .NET Core 3 version? Check out the `netcore` branch. Contributions and PRs on that branch are very welcome!
+> GitViz is now available as a .NET Core 3.1 application
 
 ### Type commands. See their effect in real time. Perfect rendering for presentations.
 
-Among the many things we do at [Readify](http://readify.net) to help people build better software, we teach people about Git.
+Among all things we do at Readify (now [Telstra Purple](https://purple.telstra.com)) to help people build better software, we teach people about Git.
 
 For newbies, the concept of commit graphs, references, branches and merges can be a bit hard to visualize.
 
@@ -23,7 +23,7 @@ Pre-built binaries are available at https://github.com/Readify/GitViz/releases
 
 ### Release Quality
 
-__Alpha.__ This entire project so far consists of one Readify guy sitting down the back of a training course and tapping away for a few hours, no more.
+__Beta.__ This was built by one guy sitting at the back of a training course and tapping away for a few hours, no more. Since then it's been well used and hasn't seen many issues, so we're calling it 'beta'. Will that ever change? ¯\_(ツ)_/¯
 
 ### What is 'presentation quality'?
 
@@ -35,7 +35,7 @@ This is not a day-to-day visualizing tool for big, active repositories. It's opt
 
 ### How it works
 
-Shells out to `git.exe`, and then renders it with the excellent [GraphSharp](http://graphsharp.codeplex.com).
+Shells out to `git.exe`, and then renders it with the excellent [GraphShape](https://github.com/KeRNeLith/GraphShape).
 
 ### FAQ
 #### How can I remove dangling commits?

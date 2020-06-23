@@ -21,7 +21,7 @@ namespace GitViz.Logic
         {
             get
             {
-                return "Readify GitViz (Alpha)"
+                return "Readify GitViz (Beta)"
                     + (string.IsNullOrWhiteSpace(_repositoryPath)
                         ? string.Empty
                         : " - " + Path.GetFileName(_repositoryPath));

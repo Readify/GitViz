@@ -1,5 +1,5 @@
-﻿using GitViz.Logic;
-using GraphSharp.Controls;
+using GitViz.Logic;
+using GraphShape.Controls;
 
 namespace UI
 {
