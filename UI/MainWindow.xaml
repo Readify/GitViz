@@ -24,7 +24,7 @@
         </DataTemplate>
         <DataTemplate x:Key="ReferenceTemplate" DataType="{x:Type logic:Vertex}">
             <Border x:Name="Border" BorderBrush="DarkSlateGray" Background="LightGray" BorderThickness="3" Padding="10">
-                <TextBlock x:Name="Text" Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="Red" FontSize="14pt" FontFamily="Consolas" />
+                <TextBlock x:Name="Text" Text="{Binding Path=Reference.Name, Mode=OneWay}" Foreground="#570000" FontSize="14pt" FontFamily="Consolas" />
             </Border>
             <DataTemplate.Triggers>
                 <DataTrigger Binding="{Binding Path=Reference.IsActive}" Value="true">
